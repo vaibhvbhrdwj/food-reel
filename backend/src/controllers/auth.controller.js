@@ -75,19 +75,82 @@ async function logoutUser(req,res){
 
 
 async function registerFoodPartner(req,res){
-    const{fullName , email , password} = req.body;
+    const{name , email , password} = req.body;
 
     const isPartnerAlreadyExists = await foodPartnerModel.findOne({
         email
-    })   
+    })  
+    if(isPartnerAlreadyExists){
+        res.status(201).json({
+            message :"Food Partner account already exists"
+        })
+    } 
+    const hashedPassword = await bcrypt.hash(password , 10);
+
+    const foodPartner = await foodPartnerModel.create({
+        name,
+        email,
+        password : hashedPassword
+    })
+    const token = jwt.sign ({id : foodPartner._id}, secret)
+    
+    res.cookie("token", token)
+
+    res.status(201).json({
+        message : "Food Partner registered successfully",
+        foodPartner :{
+            _id : foodPartner._id,
+            email : foodPartner.email,
+            name : foodPartner.name
+        }
+    })
 }
 
 async function loginFoodPartner(req,res){
     const {email , password } = req.body;
+        const foodPartner = await foodPartnerModel.findOne({
+        email
+    })
+    if(!foodPartner){
+        return res.status(400).json({
+            message : "Invalid Password or Email"
+        })
+    }
+    const isPasswordValid = await bcrypt.compare(password , foodPartner.password);
+
+    if(!isPasswordValid){
+        return res.status(400).json({
+            message:"Invalid email or password"
+        })
+    }
+    const token = jwt.sign({id: foodPartner._id},secret);
+
+    res.cookie("token",token)
+
+    res.status(200).json({
+        message:"User loggen in Succesfully",
+        foodPartner :{
+            _id : foodPartner._id,
+            email : foodPartner.email,
+            name : foodPartner.name
+        }
+    })
 }
+
+function logoutFoodPartner(req,res){
+    res.clearCookie("token");
+    res.status(200).json({
+        message : "Food partner logged out successfully"
+    });
+}
+
+
 
 module.exports ={
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    registerFoodPartner,
+    loginFoodPartner,
+    logoutFoodPartner
 }
