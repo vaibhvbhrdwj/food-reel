@@ -160,13 +160,14 @@ function UserRegister() {
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
+
 <div className='bg-black min-w-screen min-h-screen flex items-center justify-center' style={{ position: 'relative' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
         <Galaxy />
       </div>
-      
-      <div className='relative z-10 text-white p-12 rounded-2xl shadow-2xl bg-white/[0.02] backdrop-blur-lg border border-white/5 max-w-lg w-full mx-4'>
-        <div className='flex items-center justify-center mb-10'>
+
+      <div className='relative z-10 text-white  rounded-2xl shadow-2xl bg-white/[0.02] backdrop-blur-lg border border-white/5 max-w-lg w-full mx-4 px-10'>
+        <div className='flex items-center justify-center mb-10 p-10'>
           <div className='relative'>
             <img 
               className='rounded-full h-24 w-24 object-cover border-4 border-white/10 shadow-xl' 
@@ -190,7 +191,7 @@ function UserRegister() {
           </div>
         )}
         
-        <div className='space-y-8'>
+        <div className='space-y-8 px-10'>
           <div className='space-y-3'>
             <label className='block text-sm font-semibold text-white/90 ml-1'>
               First Name <span className='text-red-400'>*</span>
