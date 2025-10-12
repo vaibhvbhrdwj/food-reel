@@ -17,3 +17,4 @@ const AppRoutes = () => {
 }
  
 export default AppRoutes
+//making a better ui to make it more interactive
