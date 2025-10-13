@@ -18,3 +18,6 @@ const AppRoutes = () => {
  
 export default AppRoutes
 //making a better ui to make it more interactive
+
+
+// little ill cant do the code right now 
