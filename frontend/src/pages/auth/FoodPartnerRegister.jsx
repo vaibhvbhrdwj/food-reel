@@ -22,3 +22,5 @@ const FoodPartnerRegister = () => {
 export default FoodPartnerRegister
 
 //trying my best to make it more interactive and feature loaded 
+//making a better ui to make it more interactive
+// little ill cant do the code right now
